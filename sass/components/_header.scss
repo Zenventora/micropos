@@ -1,0 +1,133 @@
+.header{
+    position: sticky;
+    max-width: 100%;
+    width: 100%;
+    top: 0px;
+    padding: 15px 0px;
+    z-index: 10;
+    @media(max-width: 992px){
+        padding: 10px 0px;
+    }
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        background: $black;
+        opacity: 0.5;
+    }
+    .hdr_container{
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1;
+        @media(max-width: 768px){
+            justify-content: center;
+        }
+        .brand_title{
+            line-height: 0;
+        }
+        .nav_sec{
+            display: flex;
+            .nav_link{
+                position: relative;
+                padding: 10px 15px;
+                font-weight: 500;
+                color: #c2c2c2;
+                transition: all 0.15s linear;
+                &:last-child{
+                    padding-right: 0px;
+                }
+                &:hover, &.active{
+                    color: #fff;
+                }
+                @media(max-width: 992px){
+                    font-size: 16px;
+                    padding: 10px 10px;
+                }
+            }
+            @media(max-width: 768px) {
+                display: none;
+            }
+            .nav_dd{
+                position: relative;
+                .nav_link{
+                    padding-right: 35px;
+                    &:after{
+                        content: "";
+                        border: solid #c2c2c2;
+                        border-width: 0 2px 2px 0;
+                        display: inline-block;
+                        padding: 3.5px;
+                        position: absolute;
+                        right: 15px;
+                        top: 18px;
+                        transform: rotate(45deg);
+                        transition: all .3s ease;
+                    }
+                    @media(max-width: 992px){
+                        padding-right: 30px;
+                    }
+                }
+                .nav_dd_box{
+                    // background: #000;
+                    position: absolute;
+                    top: 20px;
+                    left: 0;
+                    opacity: 0;
+                    visibility: hidden;
+                    margin: 0 auto;
+                    border-radius: 15px;
+                    transform: translateY(10px);
+                    transition: transform .3s ease-in-out,opacity .3s ease-in-out;
+                    overflow: hidden;
+                    z-index: 91;
+                    width: 270px;
+                    color: #fff;
+                    padding: 5px;
+                    display: inline-block;
+                    box-shadow: rgba(0,0,0,0.1) 0px 0px 0px 1px,rgba(255,255,255,0.1) 0px 0px 0px 1px inset;
+                    &:after {
+                        content: "";
+                        position: absolute;
+                        left: 0px;
+                        top: 0px;
+                        width: 100%;
+                        height: 100%;
+                        background: #000;
+                        opacity: 0.9;
+                        border-radius: 15px;
+                    }
+                    .nav_link{
+                        padding: 7.5px 15px;
+                        z-index: 1;
+                        &:after{
+                            display: none;
+                        }
+                        @media(max-width: 992px){
+                            padding: 7.5px 10px;
+                        }
+                    }
+                }
+                &:hover{
+                    .nav_dd_box{
+                        opacity:1;
+                        visibility:visible;
+                        transform: translateY(30px);
+                    }
+                    .nav_link{
+                        &:after{
+                            border: solid #fff;
+                            border-width: 0 2px 2px 0;
+                            transform: rotate(-135deg);
+                            top: 23px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

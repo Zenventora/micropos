@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>https://puravigal.com/</loc>
+    <xhtml:link href="https://puravigal.com/" hreflang="x-default" rel="alternate"/>
+  </url>
+  <url>
+    <loc>https://puravigal.com/about-us.html</loc>
+    <xhtml:link href="https://puravigal.com/about-us.html" hreflang="x-default" rel="alternate"/>
+  </url>
+  <url>
+    <loc>https://puravigal.com/terms-and-conditions.html</loc>
+    <xhtml:link href="https://puravigal.com/terms-and-conditions.html" hreflang="x-default" rel="alternate"/>
+  </url>
+  <url>
+    <loc>https://puravigal.com/privacy-policy.html</loc>
+    <xhtml:link href="https://puravigal.com/privacy-policy.html" hreflang="x-default" rel="alternate"/>
+  </url>
+  <url>
+    <loc>https://puravigal.com/Careers.html</loc>
+    <xhtml:link href="https://puravigal.com/Careers.html" hreflang="x-default" rel="alternate"/>
+  </url>
+</urlset>

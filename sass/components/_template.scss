@@ -1,0 +1,53 @@
+.template_page{
+    position: relative;
+    p, a{
+        font-size: 20px;
+        @media(max-width: 992px){
+            font-size: 18px;
+        }
+    }
+    .template_content_sec{
+        background: $white;
+        position: relative;
+        padding: 120px 0px;
+        @media(max-width: 992px){
+            padding: 60px 0px;
+        }
+        p, h2, h3, h4, h5, h6, a{
+            color: $black;
+        } 
+        h5{
+            margin-bottom: 10px;
+        }
+        .container{
+            max-width: 1080px;
+            margin-bottom: 40px;
+            @media(max-width: 1180px){
+                max-width: 90%;
+            }
+            &:last-child{
+                margin-bottom: 0px;
+            }
+            .inr_content_box{
+                margin-bottom: 25px;
+                &:last-child{
+                    margin-bottom: 0px;
+                }
+                p{
+                    margin-bottom: 15px;
+                    &:last-child{
+                        margin-bottom: 0px;
+                    }
+                     a{
+                        display: inline-block;
+                        font-weight: 600;
+                    }
+                }
+                a{
+                    font-weight: 600;
+                    color: #0084ff;
+                }
+            }
+        }
+    }
+}

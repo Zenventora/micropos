@@ -1,0 +1,492 @@
+.page_sec .bnr_sec {
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.page_sec .bnr_inr {
+  z-index: 2;
+}
+
+.page_sec .bnr_img_sec {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+  margin-top: -80px;
+}
+
+.page_sec .bnr_img_strip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.page_sec .bnr_img_card {
+  position: relative;
+  max-width: 210px;
+  width: 100%;
+  height: 320px;
+  padding: 5px;
+  border-radius: 20px;
+  background: var(--page-bg);
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 24px rgb(29 57 91 / 10%);
+  flex-shrink: 0;
+  transition: all 0.3s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page_sec .bnr_img_card::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  left: 5px;
+  border-radius: 15px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.page_sec .b1_card {
+  transform: perspective(210px) scale(1.05) translateX(0) rotateY(3deg);
+}
+
+.page_sec .f1_card {
+  transform: perspective(210px) scale(1.05) translateX(0) rotateY(-3deg);
+}
+
+.page_sec .b2_card {
+  transform: perspective(210px) scale(1.15) translateX(-15px) rotateY(6deg);
+}
+
+.page_sec .f2_card {
+  transform: perspective(210px) scale(1.15) translateX(15px) rotateY(-6deg);
+}
+
+.page_sec .b3_card {
+  transform: perspective(210px) scale(1.3) translateX(-50px) rotateY(9deg);
+}
+
+.page_sec .f3_card {
+  transform: perspective(210px) scale(1.3) translateX(50px) rotateY(-9deg);
+}
+
+.page_sec .b4_card {
+  transform: perspective(210px) scale(1.55) translateX(-110px) rotateY(12deg);
+}
+
+.page_sec .f4_card {
+  transform: perspective(210px) scale(1.55) translateX(110px) rotateY(-12deg);
+}
+
+.page_sec .card_1::after {
+  background-image: url(../images/zh-home-retail-banner-1-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_1::after {
+  background-image: url(../images/zh-home-retail-banner-1-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_1::after {
+  background-image: url(../images/zh-home-retail-banner-1-2x.jpg);
+}
+
+.page_sec .card_2::after {
+  background-image: url(../images/zh-home-retail-banner-2-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_2::after {
+  background-image: url(../images/zh-home-retail-banner-2-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_2::after {
+  background-image: url(../images/zh-home-retail-banner-2-2x.jpg);
+}
+
+.page_sec .card_3::after {
+  background-image: url(../images/zh-home-retail-banner-3-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_3::after {
+  background-image: url(../images/zh-home-retail-banner-3-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_3::after {
+  background-image: url(../images/zh-home-retail-banner-3-2x.jpg);
+}
+
+.page_sec .card_4::after {
+  background-image: url(../images/zh-home-retail-banner-4-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_4::after {
+  background-image: url(../images/zh-home-retail-banner-4-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_4::after {
+  background-image: url(../images/zh-home-retail-banner-4-2x.jpg);
+}
+
+.page_sec .card_5::after {
+  background-image: url(../images/zh-home-retail-banner-5-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_5::after {
+  background-image: url(../images/zh-home-retail-banner-5-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_5::after {
+  background-image: url(../images/zh-home-retail-banner-5-2x.jpg);
+}
+
+.page_sec .card_6::after {
+  background-image: url(../images/zh-home-retail-banner-6-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_6::after {
+  background-image: url(../images/zh-home-retail-banner-6-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_6::after {
+  background-image: url(../images/zh-home-retail-banner-6-2x.jpg);
+}
+
+.page_sec .card_7::after {
+  background-image: url(../images/zh-home-retail-banner-7-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_7::after {
+  background-image: url(../images/zh-home-retail-banner-7-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_7::after {
+  background-image: url(../images/zh-home-retail-banner-7-2x.jpg);
+}
+
+.page_sec .card_8::after {
+  background-image: url(../images/zh-home-retail-banner-8-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_8::after {
+  background-image: url(../images/zh-home-retail-banner-8-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_8::after {
+  background-image: url(../images/zh-home-retail-banner-8-2x.jpg);
+}
+
+.page_sec .card_9::after {
+  background-image: url(../images/zh-home-retail-banner-9-lazy.jpg);
+}
+
+.n_webp .bg_lazy_loaded .card_9::after {
+  background-image: url(../images/zh-home-retail-banner-9-2x.webp);
+}
+
+.s_webp .bg_lazy_loaded .card_9::after {
+  background-image: url(../images/zh-home-retail-banner-9-2x.jpg);
+}
+
+.page_sec .bnr_img_strip.is-ready {
+  display: block;
+  width: min(100%, 1360px);
+  min-height: 420px;
+  margin: 0 auto;
+  perspective: none;
+  perspective-origin: center center;
+  transform-style: flat;
+}
+
+.page_sec .bnr_img_strip.is-ready .bnr_img_card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: none;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
+.bnr_mid_img{
+  position: relative;
+  text-align: center;
+  margin: 0px auto;
+}
+
+.brand_outer {
+  position:relative;
+  max-width: var(--page-max-width);
+  width:100%;
+  margin:0 auto;
+  display:flex;
+  overflow:hidden;
+  justify-content:center;
+}
+.brand_outer:after,
+.brand_outer:before {
+  content:"";
+  position:absolute;
+  height:100%;
+  width:var(--page-brand-fade-width);
+  background:linear-gradient(to left,var(--page-bg) 0,transparent 100%);
+  right:0;
+  z-index:1;
+}
+.brand_outer:after {
+  left:0;
+  right:unset;
+  transform:rotate(180deg)
+}
+.brand_inr {
+  display:flex;
+  margin:0 auto
+}
+.brand_list {
+  background-color:var(--page-bg);
+  padding:var(--page-brand-list-padding);
+  width:max-content;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box
+}
+.bl {
+  display:inline-block;
+  margin:0 var(--page-brand-item-gap);
+  min-height:var(--page-brand-item-min-height);
+  border-radius:var(--page-brand-item-radius);
+  background-size: var(--page-brand-sprite-size)
+}
+.bg_lazy_loaded .bl {
+  background-image:url(../images/zh-home-retail-common-sprite-img.svg)
+}
+.bl1 {
+  background-position:-5px -7px;
+  width:156px
+}
+.bl2 {
+  background-position:-237px -8px;
+  width:85px
+}
+.bl3 {
+  background-position:-397px -8px;
+  width:160px
+}
+.bl4 {
+  background-position:-630px -8px;
+  width:114px
+}
+.bl5 {
+  background-position:-816px -8px;
+  width:138px
+}
+.bl6 {
+  background-position:-1030px -8px;
+  width:153px
+}
+
+.prod_sec{
+  background: var(--page-light-bg);
+}
+.prod_inr{
+  max-width: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: 1px solid #efdef9;
+  padding: 30px;
+  border-radius: 30px;
+  margin-top: 40px;
+  background: #fff;
+}
+.prod_lg_sec{
+  display: flex;
+}
+.prod_lg_sec img{
+  margin-right: var(--page-prod-logo-gap);
+}
+.prod_name{
+  margin: 0;
+  color: var(--page-color-inverse);
+  font: var(--page-font-h6);
+}
+.prod_lg_sec{
+  min-height: 298px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+.desc_sec{
+  text-align: left;
+  max-width: calc(100% - 350px);
+  width: 100%;
+}
+.desc_sec p{
+  margin-bottom: 0px;
+}
+.sss_sec{
+  padding-top: 0px;
+  background: var(--page-light-bg);
+}
+.sss_sec:after{
+  content: "";
+  position: absolute;
+  height: 240px;
+  width: 100%;
+  left: 0px;
+  bottom: 0px;
+  background: var(--page-bg);
+}
+.sss_sec .inr_container{
+  z-index: 1;
+  padding: var(--page-padding) 5%;
+  background: var(--page-conic-bg);
+  border-radius: var(--page-radius);
+  background-size: 170% 200%;
+  background-position: 20% 75%;
+  background-repeat: no-repeat;
+}
+.s_sec{
+  display: flex;
+  align-items: center;
+}
+.s_count{
+  display: inline-block;
+  font: 800 164px/0.8 var(--page-font-family-heading);
+  color: #dda4ff;
+}
+.s_text_sec{
+  display: flex;
+  flex-wrap: wrap;
+}
+.s_text_sec .s_text{
+  display: inline-block;
+  max-width: 100%;
+  width: 100%;
+  font: 800 34px/1 var(--page-font-family-heading);
+  color: var(--page-light-text-color);
+  margin-left: 2.5px;
+  margin-bottom: 7.5px;
+}
+.s_text_sec .s_text:last-child{
+  margin-bottom: 0px;
+}
+.s_box_sec{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 50px;
+  flex-wrap: wrap;
+}
+.s_box{
+  position: relative;
+  max-width: calc(33.3% - 50px);
+  width: 100%;
+}
+.s_cnt{
+  display: inline-block;
+  position: relative;
+  height: 75px;
+  width: 75px;
+  background: conic-gradient(from 35deg,#000,#400162);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--page-brand-item-radius);
+  font: 600 28px/1.2 var(--page-font-family-heading);
+}
+.s_box h4{
+  color: var(--page-light-text-color);
+}
+.s_box span,
+.s_box p{
+  color: var(--page-bg);
+}
+.s_box p{
+  margin-bottom: 0px;
+}
+@media (max-width: 1180px) {
+  .s_box{
+    max-width: calc(33.3% - 30px);
+  }
+}
+@media (max-width: 992px) {
+  .page_sec .bnr_img_strip {
+    gap: 20px;
+  }
+
+  .page_sec .bnr_img_strip.is-ready {
+    min-height: 440px;
+  }
+
+  .page_sec .bnr_img_card {
+    max-width: 198px;
+    height: 360px;
+    border-radius: 30px;
+  }
+
+  .page_sec .bnr_img_card::after {
+    border-radius: 24px;
+  }
+  .prod_inr{
+    padding: 40px 2.5%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .prod_lg_sec{
+    min-height: unset;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  .desc_sec{
+    max-width: 100%;
+    text-align: center;
+  }
+  .s_box{
+    max-width: 500px;
+    margin-bottom: 30px;
+  }
+  .s_box:last-child{
+    margin-bottom: 0px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page_sec .bnr_img_sec {
+    padding: 40px 0 24px;
+    margin-top: 16px;
+  }
+
+  .page_sec .bnr_img_strip.is-ready {
+    min-height: 320px;
+  }
+
+  .page_sec .bnr_img_card {
+    max-width: 152px;
+    height: 280px;
+    padding: 6px;
+    border-radius: 24px;
+  }
+
+  .page_sec .bnr_img_card::after {
+    top: 6px;
+    right: 6px;
+    bottom: 6px;
+    left: 6px;
+    border-radius: 18px;
+  }
+}

@@ -1,0 +1,127 @@
+.dark{
+	background: #000;
+}
+main{
+	display: flex;
+	align-items: flex-start;
+	flex-wrap: wrap;
+}
+.page_inr{
+	max-width: 100%;
+	width: 100%;
+	position: relative;
+	margin-top: -80px;
+	@media(max-width: 768px){
+		margin-top: 0px;
+	}
+}
+.banner_sec{
+	position: relative;
+	padding: 200px 0px 120px;
+	text-align: center;
+	@media(max-width: 992px){
+		padding: 140px 0px 60px;
+		@media(max-width: 768px){
+			padding: 60px 0px;
+		}
+	}
+}
+.container{
+	max-width: 1280px;
+	width: 100%;
+	margin: 0px auto;
+	@media(max-width: 1360px){
+		max-width: 90%;
+	}
+}
+.inr_container{
+	position: relative;
+	max-width: 960px;
+	width: 100%;
+	margin: 0px auto;
+	@media(max-width: 1080px){
+		max-width: 90%;
+	}
+}
+
+//Carrear Page Styleing Done by Selva
+
+.dF{display: flex;}
+.spaceBetween{justify-content: space-between;}
+.aiCenter{align-items: center;}
+.justfyCenter{justify-content: center;}
+.fDC{flex-direction: column;}
+.flexEnd{justify-content: flex-end;}
+
+.crContainer input, .crContainer select
+{
+    border: 2px solid #dee4f0;
+    width: 600px;
+    border-radius: 6px;
+    padding: 5px 7px 5px;
+	margin-top: 10px;
+    font-size: 1rem;
+}
+.crContainer input.errorActive, .crContainer select.errorActive
+{
+	border: 2px solid #dc5757;
+}
+.crContainer input[type="file"]
+{
+	color: #646d8c;
+}
+.crContainer input:hover, .crContainer select:hover
+{
+	border-color: #ccd4e3;
+    box-shadow: none;
+}
+.crContainer label, .crContaine select
+{
+	position: relative;
+}
+.crContainer label::after
+{
+	content: '*';
+	position: absolute;
+	top:-5px;
+	right: -10px;
+	color: #dc5757;
+    font-size: 1.5rem;
+    margin-left: -2px;
+}
+.crSubmitButton
+{
+	border: none;
+    padding: 10px 20px;
+    text-transform: capitalize;
+}
+.crContainerpad
+{
+	padding: 50px 0 !important;
+}
+.crErrorTxt
+{
+	color: #dc5757;
+    font-size: 14px !important;
+	visibility: hidden;
+}
+.crErrorTxt.errorActive
+{
+	visibility: visible;
+}
+.mB20
+{
+	margin-bottom: 20px;
+}
+.cP
+{
+	cursor: pointer;
+}
+.dN
+{
+	display: none;
+}
+.pR 
+{
+	position: relative;
+}

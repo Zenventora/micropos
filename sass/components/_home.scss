@@ -1,0 +1,222 @@
+.home_page{
+    position: relative;
+    p{
+        font-size: 24px;
+        @media(max-width: 1180px){
+            font-size: 22px;
+            @media(max-width: 992px){
+                font-size: 20px;
+            }
+        }
+    }
+    .banner_sec{
+        background: radial-gradient(circle at center, rgb(67, 69, 112) -100%, #000 60%);
+        p{
+            max-width: 850px;
+            margin: 0px auto;
+        }
+    }
+    .about_sec{
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        padding-bottom: 80px;
+        @media (max-width: 992px){
+            padding-bottom: 0px;
+            max-width: 90%;
+            width: 100%;
+            margin: 0px auto;
+        }
+        .about_inr{
+            position: relative;
+            padding: 120px 0px;
+            background: $white;
+            color: $black;
+            max-width: 50%;
+            width: 100%;
+            min-height: 500px;
+            @media(max-width: 992px){
+                max-width: 100%;
+                padding: 0px 0px 30px;
+                min-height: unset;
+                text-align: center;
+                background: unset;
+            }
+            &:first-child, &:nth-child(3){
+                text-align: right;
+                @media(max-width: 1480px){
+                    text-align: left;
+                }
+                .inr_box{
+                    margin: 0px 160px 0px auto;
+                    @media(max-width: 1480px){
+                        margin: 0px auto;
+                    }
+                }
+            }
+            &:nth-child(3){
+                @media(max-width: 992px){
+                    order: 3;
+                }
+            }
+            &:last-child{
+                @media(max-width: 992px){
+                    order: 2;
+                }
+            }
+            .inr_box{
+                max-width: 500px;
+                width: 100%;
+                margin: 0px auto 0px 160px;
+                display: flex;
+                align-items: center;
+                height: 100%;
+                @media(max-width: 1480px){
+                    max-width: 500px;
+                    margin: 0px auto;
+                    @media(max-width: 1180px){
+                        max-width: 400px;
+                        @media(max-width: 992px){
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+            h2, p{
+                max-width: 100%;
+                width: 100%;
+                color: #000;
+                margin-bottom: 0px;
+                @media (max-width: 992px) {
+                    text-align: center;
+                    color: $white;
+                }
+            }
+            p{
+                font-size: 20px;
+            }
+            &.black_sec{
+                background: $black;
+                color: $white;
+                h2, p{
+                    color: $white;
+                }
+            }
+        }
+        
+    }
+}
+
+.thread_icon
+{
+    height: 20px;
+    width: 20px;
+    transform: scale(1.5);
+}
+
+.editor_wrapper {
+    background: #fff;
+    padding: 20px 30px 30px;
+    position: relative;
+    box-shadow: 0 0px 30px rgba(0, 0, 0, 0.1);
+    max-width: 1140px;
+    margin: 0px auto;
+    border-radius: 10px;
+    transition: all .8s ease;
+}
+.editor_maxwidth
+{
+    max-width: 95%;
+    height: 650px;
+}
+.editor_wrapper .editor textarea {
+    min-height: 400px;
+    width: 500px;
+    background: #f7f7f7;
+    color: #000 !important;
+    border: 1px solid rgba(177, 206, 238, 0.5);
+    outline: none;
+    resize: none;
+    margin-top: 20px;
+    border-radius: 6px;
+}
+.editor
+{
+    margin-top: 20px;
+}
+ .fileUploadParent, .fileDownloadParent {
+    width: 50%;
+    height: 500px;
+    margin-left: 20px;
+}
+#htmlInput, #beautifiedHtml
+{
+    width: 100%;
+    height: 100%;
+}
+.tollMaxHeight
+{
+    height: 500px !important;
+}
+.ace_gutter {
+   
+    border-right: 1px solid #ccc;
+}
+
+.ace_gutter-cell.ace_breakpoint{ 
+    border-radius: 20px 0px 0px 20px; 
+    box-shadow: 0px 0px 1px 1px red inset; 
+}
+.upload_button {
+    position: absolute;
+    width: unset;
+    display: block;
+    padding: 6px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    background: #000;
+    z-index: 1;
+    border-radius: 3px;
+    cursor: pointer;
+    visibility: hidden;
+}
+input
+{
+    opacity: 0;
+    width: 100%;
+    position: relative;
+}
+.fileUploadParent:hover .fileUpload, .fileDownloadParent:hover .fileDownload, .fileDownloadParent:hover .copyToclipBoard
+{
+    visibility: visible;
+} 
+.top0
+{
+    top: 0px;
+}
+.left85
+{
+    left: 85%;
+}
+.left90
+{
+    left: 90%;
+}
+.left95
+{
+    left: 95%
+}
+.rotate180
+{
+    transform: rotate(180deg);
+}
+// .ace_content {
+//     color: #ff0000; /* Change this to your desired text color */
+// }
+
+.ace_text-layer > .ace_line, .ace_text-layer > .ace_line_group
+{
+    font-size: 15px;
+}
