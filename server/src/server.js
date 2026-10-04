@@ -421,7 +421,7 @@ app.post("/api/purchases",auth,roles("manager","inventory"),async function(req,r
   const d=p.data;
   try{
     const result=await runTx(async function(client){
-      if(d.idempotency_key){const old=await client.query("select * from suppliers_purchases where organization_id=$1 and purchase_number=$2",[req.user.orgId,d.idempotency_key]);if(old.rowCount)return {purchase:old.rows[0],idempotent:true};}
+      if(d.idempotency_key){const old=await client.query("select * from suppliers_purchases where organization_id=$1 and idempotency_key=$2",[req.user.orgId,d.idempotency_key]);if(old.rowCount)return {purchase:old.rows[0],idempotent:true};}
       const storeId=await storeFor(client,req.user.orgId,d.store_id);
       let subtotal=0,taxTotal=0;const lines=[];
       for(const item of d.items){
@@ -431,7 +431,7 @@ app.post("/api/purchases",auth,roles("manager","inventory"),async function(req,r
         subtotal+=lineBase;taxTotal+=tax;lines.push({product:pr.rows[0],quantity:Number(item.quantity),unitCost:Number(item.unit_cost),tax:tax,total:lineBase+tax});
       }
       const total=subtotal+taxTotal, paid=Math.min(Number(d.payment_amount || 0),total), number=await nextNumber(client,req.user.orgId,storeId,"PUR","purchase");
-      const purchase=(await client.query("insert into suppliers_purchases(organization_id,store_id,supplier_id,purchase_number,status,currency_code,subtotal,tax_total,total,paid_total,created_by) values($1,$2,$3,$4,'received',$5,$6,$7,$8,$9,$10) returning *",[req.user.orgId,storeId,d.supplier_id || null,number,d.currency_code,subtotal,taxTotal,total,paid,req.user.sub])).rows[0];
+      const purchase=(await client.query("insert into suppliers_purchases(organization_id,store_id,supplier_id,purchase_number,status,currency_code,subtotal,tax_total,total,paid_total,created_by,idempotency_key) values($1,$2,$3,$4,'received',$5,$6,$7,$8,$9,$10,$11) returning *",[req.user.orgId,storeId,d.supplier_id || null,number,d.currency_code,subtotal,taxTotal,total,paid,req.user.sub,d.idempotency_key || null])).rows[0];
       for(const line of lines){
         await client.query("insert into purchase_items(purchase_id,product_id,quantity,unit_cost,tax_amount,line_total) values($1,$2,$3,$4,$5,$6)",[purchase.id,line.product.id,line.quantity,line.unitCost,line.tax,line.total]);
         await client.query("insert into stock_balances(organization_id,store_id,product_id,quantity) values($1,$2,$3,$4) on conflict(organization_id,store_id,product_id) do update set quantity=stock_balances.quantity+excluded.quantity,updated_at=now()",[req.user.orgId,storeId,line.product.id,line.quantity]);
@@ -457,7 +457,7 @@ app.post("/api/returns",auth,roles("manager"),async function(req,res){
   const d=p.data;
   try{
     const result=await runTx(async function(client){
-      if(d.idempotency_key){const old=await client.query("select * from returns where organization_id=$1 and return_number=$2",[req.user.orgId,d.idempotency_key]);if(old.rowCount)return {return:old.rows[0],idempotent:true};}
+      if(d.idempotency_key){const old=await client.query("select * from returns where organization_id=$1 and idempotency_key=$2",[req.user.orgId,d.idempotency_key]);if(old.rowCount)return {return:old.rows[0],idempotent:true};}
       const invoice=(await client.query("select * from invoices where id=$1 and organization_id=$2 for update",[d.invoice_id,req.user.orgId])).rows[0];
       if(!invoice)throw Object.assign(new Error("Invoice not found"),{code:"INVOICE_NOT_FOUND"});
       const storeId=await storeFor(client,req.user.orgId,d.store_id || invoice.store_id);
@@ -471,7 +471,7 @@ app.post("/api/returns",auth,roles("manager"),async function(req,res){
         total+=amount;lines.push({row,quantity:Number(item.quantity),amount:amount});
       }
       const number=await nextNumber(client,req.user.orgId,storeId,"RET","return");
-      const ret=(await client.query("insert into returns(organization_id,store_id,invoice_id,customer_id,return_number,status,reason,total,created_by) values($1,$2,$3,$4,$5,'completed',$6,$7,$8) returning *",[req.user.orgId,storeId,invoice.id,invoice.customer_id,number,d.reason || null,total,req.user.sub])).rows[0];
+      const ret=(await client.query("insert into returns(organization_id,store_id,invoice_id,customer_id,return_number,status,reason,total,created_by,idempotency_key) values($1,$2,$3,$4,$5,'completed',$6,$7,$8,$9) returning *",[req.user.orgId,storeId,invoice.id,invoice.customer_id,number,d.reason || null,total,req.user.sub,d.idempotency_key || null])).rows[0];
       for(const line of lines){
         await client.query("insert into return_items(return_id,invoice_item_id,product_id,quantity,refund_amount) values($1,$2,$3,$4,$5)",[ret.id,line.row.id,line.row.product_id,line.quantity,line.amount]);
         if(line.row.product_id){
