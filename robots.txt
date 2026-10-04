@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zenventora.github.io/micropos/sitemap.xml
