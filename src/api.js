@@ -54,5 +54,10 @@ export const api={
   updateSettings:(body)=>request("/api/settings",{method:"PATCH",body:JSON.stringify(body)}),
   audit:()=>request("/api/audit"),
   notifications:()=>request("/api/notifications"),
+  users:()=>request("/api/users"),
+  updateUserRole:(id,role)=>request("/api/users/"+id+"/role",{method:"PATCH",body:JSON.stringify({role})}),
+  importPreview:(body)=>request("/api/imports/preview",{method:"POST",body:JSON.stringify(body)}),
+  importCommit:(body)=>request("/api/imports/commit",{method:"POST",body:JSON.stringify(body)}),
+  imports:()=>request("/api/imports"),
   sync:(body)=>request("/api/offline/sync",{method:"POST",body:JSON.stringify(body)})
 };
