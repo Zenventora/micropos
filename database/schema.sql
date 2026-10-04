@@ -227,3 +227,21 @@ on conflict do nothing;
 insert into plans(code,name,price,currency_code,billing_period) values
 ('free','Free',0,'INR','monthly'),('standard','Standard',0,'INR','monthly')
 on conflict(code) do nothing;
+
+-- Idempotency and operational hardening added after initial foundation.
+alter table if not exists suppliers_purchases add column if not exists idempotency_key text;
+alter table if not exists returns add column if not exists idempotency_key text;
+create unique index if not exists ux_purchase_idempotency on suppliers_purchases(organization_id,idempotency_key) where idempotency_key is not null;
+create unique index if not exists ux_return_idempotency on returns(organization_id,idempotency_key) where idempotency_key is not null;
+create unique index if not exists ux_stock_movement_idempotency on stock_movements(organization_id,idempotency_key) where idempotency_key is not null;
+create index if not exists idx_sessions_user_active on sessions(user_id,revoked_at,expires_at);
+create index if not exists idx_org_users_user on organization_users(user_id,organization_id);
+create index if not exists idx_invoice_items_invoice on invoice_items(invoice_id);
+create index if not exists idx_returns_invoice on returns(invoice_id,created_at);
+create index if not exists idx_purchase_items_purchase on purchase_items(purchase_id);
+
+-- Reference masters used by onboarding and regional defaults.
+insert into units(organization_id,code,name,decimals)
+select null,'PCS','Piece',0
+where not exists(select 1 from units where organization_id is null and code='PCS');
+
