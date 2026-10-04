@@ -1,0 +1,14 @@
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import pg from "pg";
+const {Pool}=pg;
+const app=express();
+app.use(cors({origin:true,credentials:true}));
+app.use(express.json({limit:"1mb"}));
+const pool=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.DATABASE_SSL==="true"?{rejectUnauthorized:false}:undefined}):null;
+app.get("/api/health",async(_req,res)=>{let db="not-configured";if(pool){try{await pool.query("select 1");db="ok"}catch{db="error"}}res.json({ok:true,service:"puravigal-pos-api",database:db,time:new Date().toISOString()})});
+app.use("/api",(_req,res,next)=>{res.setHeader("X-API-Version","1");next()});
+app.use((err,_req,res,_next)=>{console.error(err);res.status(500).json({error:{code:"INTERNAL_ERROR",message:"Something went wrong."}})});
+const port=Number(process.env.PORT||4000);
+app.listen(port,()=>console.log(`Puravigal POS API listening on :${port}`));
