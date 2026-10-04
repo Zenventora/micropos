@@ -13,7 +13,7 @@ if(missing.length){console.error("Missing files:",missing.join(", "));process.ex
 const app=fs.readFileSync("src/App.jsx","utf8");
 const server=fs.readFileSync("server/src/server.js","utf8");
 const schema=fs.readFileSync("database/schema.sql","utf8");
-const requiredApp=["Billing","Products","Inventory","Purchases","Customers","Suppliers","Reports","Returns","Settings"];
+const requiredApp=["Billing","Products","Inventory","Purchases","People","Reports","Returns","Settings"];
 const requiredApi=["/api/auth/signup","/api/auth/login","/api/auth/refresh","/api/auth/logout","/api/sales","/api/purchases","/api/returns","/api/inventory/adjust","/api/reports/summary","/api/offline/sync"];
 const requiredTables=["organizations","stores","users","sessions","products","customers","suppliers","invoices","invoice_items","payments","stock_balances","stock_movements","suppliers_purchases","purchase_items","returns","return_items","refund_transactions","invoice_deliveries","plans","organization_subscriptions","usage_counters","notifications","import_jobs","offline_operations","audit_logs"];
 const missApp=requiredApp.filter(x=>!app.includes("function "+x) && !app.includes("function "+x+"("));
