@@ -18,7 +18,7 @@ const pool = process.env.DATABASE_URL ? new Pool({
   max: Number(process.env.DB_POOL_MAX || 10)
 }) : null;
 
-const JWT_SECRET = process.env.JWT_SECRET || "development-only-change-me";
+const JWT_SECRET = process.env.JWT_SECRET || "development-only-change-me";\nif(process.env.NODE_ENV==="production" && JWT_SECRET==="development-only-change-me") throw new Error("JWT_SECRET must be configured in production");\nif(process.env.NODE_ENV==="production" && !process.env.CORS_ORIGIN) throw new Error("CORS_ORIGIN must be configured in production");
 const ACCESS_TTL = "15m";
 const REFRESH_DAYS = 30;
 const apiLimiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 600, standardHeaders: true, legacyHeaders: false });
