@@ -588,6 +588,71 @@ app.patch("/api/settings",auth,roles("owner","admin"),async function(req,res){
   }catch(e){console.error(e);return fail(res,500,"SETTINGS_FAILED","Unable to update settings.");}
 });
 
+
+app.get("/api/users",auth,roles("owner","admin"),async function(req,res){
+  if(!requireDb(res))return;
+  const r=await pool.query("select u.id,u.email,u.display_name,u.phone,u.is_verified,u.is_active,ou.role,ou.created_at from users u join organization_users ou on ou.user_id=u.id where ou.organization_id=$1 order by ou.created_at",[req.user.orgId]);
+  return ok(res,{items:r.rows});
+});
+app.patch("/api/users/:id/role",auth,roles("owner","admin"),async function(req,res){
+  if(!requireDb(res))return;
+  const p=z.object({role:z.enum(["owner","admin","manager","cashier","inventory"])}).safeParse(req.body);
+  if(!p.success)return fail(res,400,"VALIDATION_ERROR","Invalid role.");
+  if(req.params.id===req.user.sub && p.data.role!=="owner")return fail(res,400,"SELF_DEMOTION_BLOCKED","You cannot remove your own owner access.");
+  try{
+    const q=await pool.query("update organization_users set role=$1 where organization_id=$2 and user_id=$3 returning *",[p.data.role,req.user.orgId,req.params.id]);
+    if(!q.rowCount)return fail(res,404,"NOT_FOUND","User is not part of this organization.");
+    await audit(pool,req,"update","user_role",req.params.id,null,{role:p.data.role});
+    return ok(res,q.rows[0]);
+  }catch(e){return fail(res,500,"ROLE_UPDATE_FAILED","Unable to update role.");}
+});
+
+app.post("/api/imports/preview",auth,roles("owner","admin","manager","inventory"),async function(req,res){
+  if(!requireDb(res))return;
+  const p=z.object({entity_type:z.enum(["products","customers","suppliers"]),source_filename:z.string().max(255).optional(),rows:z.array(z.record(z.string(),z.any())).max(5000)}).safeParse(req.body);
+  if(!p.success)return fail(res,400,"VALIDATION_ERROR","Invalid import payload.",p.error.issues);
+  const d=p.data,errors=[],valid=[];
+  d.rows.forEach(function(row,index){const name=String(row.name||row.Name||"").trim();if(!name)errors.push({row:index+1,field:"name",message:"Name is required."});else valid.push({row:index+1,data:row});});
+  return ok(res,{entity_type:d.entity_type,total_rows:d.rows.length,valid_rows:valid.length,invalid_rows:errors.length,errors:errors.slice(0,200),preview:valid.slice(0,20)});
+});
+app.post("/api/imports/commit",auth,roles("owner","admin","manager","inventory"),async function(req,res){
+  if(!requireDb(res))return;
+  const p=z.object({entity_type:z.enum(["products","customers","suppliers"]),source_filename:z.string().max(255).optional(),rows:z.array(z.record(z.string(),z.any())).max(5000)}).safeParse(req.body);
+  if(!p.success)return fail(res,400,"VALIDATION_ERROR","Invalid import payload.",p.error.issues);
+  const d=p.data;
+  try{
+    const result=await runTx(async function(client){
+      const job=(await client.query("insert into import_jobs(organization_id,entity_type,status,source_filename,total_rows,created_by) values($1,$2,'processing',$3,$4,$5) returning *",[req.user.orgId,d.entity_type,d.source_filename||null,d.rows.length,req.user.sub])).rows[0];
+      let valid=0;const errors=[];
+      for(let i=0;i<d.rows.length;i++){
+        const row=d.rows[i],name=String(row.name||row.Name||"").trim();
+        if(!name){errors.push({row:i+1,message:"Name is required."});continue;}
+        try{
+          if(d.entity_type==="products"){
+            const price=Number(row.selling_price??row.price??row.SellingPrice??0),purchase=Number(row.purchase_price??row.PurchasePrice??0),min=Number(row.min_stock??row.MinStock??0);
+            if(!Number.isFinite(price)||price<0||!Number.isFinite(purchase)||purchase<0||!Number.isFinite(min)||min<0)throw new Error("Invalid numeric product value");
+            await client.query("insert into products(organization_id,name,sku,barcode,selling_price,purchase_price,min_stock,currency_code) values($1,$2,$3,$4,$5,$6,$7,(select currency_code from organizations where id=$1))",[req.user.orgId,name,row.sku||row.SKU||null,row.barcode||row.Barcode||null,price,purchase,min]);
+          }else if(d.entity_type==="customers"){
+            await client.query("insert into customers(organization_id,name,phone,email,tax_id) values($1,$2,$3,$4,$5)",[req.user.orgId,name,row.phone||row.Phone||null,row.email||row.Email||null,row.tax_id||row.taxId||null]);
+          }else{
+            await client.query("insert into suppliers(organization_id,name,phone,email,tax_id) values($1,$2,$3,$4,$5)",[req.user.orgId,name,row.phone||row.Phone||null,row.email||row.Email||null,row.tax_id||row.taxId||null]);
+          }
+          valid++;
+        }catch(e){errors.push({row:i+1,message:e.code==="23505"?"Duplicate unique value":e.message});}
+      }
+      await client.query("update import_jobs set status=$1,valid_rows=$2,invalid_rows=$3,errors=$4,completed_at=now() where id=$5",errors.length&&valid===0?"failed":"completed",valid,errors.length,JSON.stringify(errors.slice(0,500)),job.id);
+      await audit(client,req,"import",d.entity_type,job.id,null,{valid_rows:valid,invalid_rows:errors.length});
+      return {job_id:job.id,status:errors.length&&valid===0?"failed":"completed",total_rows:d.rows.length,valid_rows:valid,invalid_rows:errors.length,errors:errors.slice(0,200)};
+    });
+    return ok(res,result,201);
+  }catch(e){console.error(e);return fail(res,500,"IMPORT_FAILED","Import could not be completed.");}
+});
+app.get("/api/imports",auth,roles("owner","admin","manager","inventory"),async function(req,res){
+  if(!requireDb(res))return;
+  const r=await pool.query("select * from import_jobs where organization_id=$1 order by created_at desc limit 100",[req.user.orgId]);
+  return ok(res,{items:r.rows});
+});
+
 app.get("/api/audit",auth,roles("owner","admin"),async function(req,res){
   if(!requireDb(res))return;
   const r=await pool.query("select a.*,u.display_name from audit_logs a left join users u on u.id=a.user_id where a.organization_id=$1 order by a.created_at desc limit 300",[req.user.orgId]);
